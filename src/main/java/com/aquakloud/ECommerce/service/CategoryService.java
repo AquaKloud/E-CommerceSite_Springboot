@@ -20,4 +20,16 @@ public class CategoryService {
     public List<Category> listCategory() {
         return categoryRepo.findAll();
     }
+
+    public boolean findById(int categoryId) {
+        return categoryRepo.findById(categoryId).isPresent();
+    }
+
+    public void editCategory(int categoryId, Category updatecategory) {
+        Category category = categoryRepo.getReferenceById(categoryId);
+        category.setCategoryName(updatecategory.getCategoryName());
+        category.setDescription(updatecategory.getDescription());
+        category.setImageUrl(updatecategory.getImageUrl());
+        categoryRepo.save(category);
+    }
 }
