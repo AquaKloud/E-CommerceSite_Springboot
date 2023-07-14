@@ -1,6 +1,7 @@
 package com.aquakloud.ECommerce.service;
 
 import com.aquakloud.ECommerce.dto.ProductDTO;
+import com.aquakloud.ECommerce.exceptions.ProductNoExistsException;
 import com.aquakloud.ECommerce.model.Category;
 import com.aquakloud.ECommerce.model.Product;
 import com.aquakloud.ECommerce.repository.ProductRepo;
@@ -63,5 +64,13 @@ public class ProductService {
         productRepo.save(product);
 
 
+    }
+
+    public Product findById(Integer productId) throws ProductNoExistsException{
+        Optional<Product> optionalProduct = productRepo.findById(productId);
+        if(optionalProduct.isPresent()){
+            throw new ProductNoExistsException("product id is invalid: " + productId);
+        }
+        return optionalProduct.get();
     }
 }

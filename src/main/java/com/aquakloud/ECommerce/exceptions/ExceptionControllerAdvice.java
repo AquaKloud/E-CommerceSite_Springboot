@@ -22,4 +22,8 @@ public class ExceptionControllerAdvice {
                 );
     }
 
+    @ExceptionHandler(value = ProductNoExistsException.class)
+    public final ResponseEntity<String> handleProductNotExistsException(ProductNoExistsException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
